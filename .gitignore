@@ -1,0 +1,16 @@
+.DS_Store
+._*
+node_modules
+vendor
+.idea
+docker-compose.override.yml
+*.orig
+!/var/logs
+/var/logs/**/*
+.env
+docs/.couscous/generated/*
+/apps/www/web/uploads
+/apps/www/app/Resources/database/*
+!/apps/www/app/Resources/database/.gitkeep
+.php_cs.cache
+behat.yml
