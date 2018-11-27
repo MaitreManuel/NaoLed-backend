@@ -6,8 +6,9 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const helpers = require('./helpers/global')
-const ashBinHelpers = require('./helpers/ashbinHelpers')
+const helpers = require('./helpers/global');
+const ashBinHelpers = require('./helpers/ashbinHelpers');
+const trashBinHelpers = require('./helpers/trashHelpers');
 
 const Ashbin = require('./model/ashbin');
 const Trash = require('./model/trash');
@@ -40,20 +41,76 @@ app.get('/', (req, res) => {
 
 // Get
 
+// Ashbin
+
 app.get('/getAshbins', (req, res) => {
-  helpers.getAll(Ashbin, res);
+  helpers.getAll(Ashbin, ({ error, result }) => {
+    if (error) {
+      res.send(error);
+    } else {
+      result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+    }
+  });
 });
 
+app.get('/getNbAshbin', (req, res) => {
+  helpers.getAll(Ashbin, ({ error, result }) => {
+    if (error) {
+      res.send(error);
+    } else {
+      result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: ashBinHelpers.getNbAshbin(result) });
+    }
+  });
+});
+
+// Trash
+
 app.get('/getTrashs', (req, res) => {
-  helpers.getAll(Trash, res);
+  helpers.getAll(Trash, ({ error, result }) => {
+    if (error) {
+      res.send(error);
+    } else {
+      result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+    }
+  });
+});
+
+app.get('/getNbTrash', (req, res) => {
+  helpers.getAll(Trash, ({ error, result }) => {
+    if (error) {
+      res.send(error);
+    } else {
+      result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrash(result) });
+    }
+  });
+});
+
+app.get('/getNbTrashIn', (req, res) => {
+  helpers.getAll(Trash, ({ error, result }) => {
+    if (error) {
+      res.send(error);
+    } else {
+      result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrashIn(result) });
+    }
+  });
+});
+
+app.get('/getNbTrashOut', (req, res) => {
+  helpers.getAll(Trash, ({ error, result }) => {
+    if (error) {
+      res.send(error);
+    } else {
+      result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrashOut(result) });
+    }
+  });
 });
 
 // Set
 
-// app.post('/getAshbins', (req, res) => {
-//   helpers.getAll(Ashbin, res);
-// });
+app.get('/addAshbin', (req, res) => {
+  ashBinHelpers.setAshbin(res);
+});
 
-// app.post('/getTrashs', (req, res) => {
-//   helpers.getAll(Trash, res);
-// });
+app.post('/setTrashs', (req, res) => {
+  // helpers.getAll(Trash, res);
+});

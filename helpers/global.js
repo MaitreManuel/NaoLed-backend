@@ -1,10 +1,10 @@
 module.exports = class Global {
-  static getAll(model, res) {
+  static getAll(model, callback) {
     return model.find((error, result) => {
       if (error) {
-        res.send(error);
+        callback({ error: error});
       } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+        callback({ result: result });
       }
     });
   }
