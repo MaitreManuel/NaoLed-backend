@@ -1,0 +1,19 @@
+version: '3'
+services:
+    web:
+        build: .
+        volumes:
+            - ./:/usr/src/app
+        ports:
+            - '5000:5000'
+        links:
+            - mongo
+        depends_on:
+            - mongo
+
+    mongo:
+        image: mongo:latest
+        volumes:
+            - ./dump:/data/db
+        ports:
+            - '27017:27017'
