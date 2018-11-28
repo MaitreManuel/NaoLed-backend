@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Server servin' from good ol' port ${process.env.PORT}`);
+  console.log(`Server servin' from good ol' port ${PORT}`);
 });
 
 app.get('/', (req, res) => {
