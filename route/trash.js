@@ -48,23 +48,36 @@ module.exports = app => {
     });
   });
 
+  // Get diff between Trash used and recycled
   app.get('/getNbTrashWhichNotBeSort', (req, res) => {
     helpers.getAll(Trash, ({ error, result }) => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrashWhichNotBeSort(result) });
+        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbinToRecycle: trashBinHelpers.getNbTrashWhichNotBeSort(result) });
       }
     });
   });
 
   // Add a Trash recycled
   app.get('/setTrashIn', (req, res) => {
-    trashBinHelpers.setTrash({ type: 1 }, ({ error, result }) => {
+    helpers.getAll(Trash, ({ error, result }) => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+        let nbAshbin = trashBinHelpers.getNbTrashWhichNotBeSort(result);
+
+        if (nbAshbin < 1) {
+          res.send({ 'message': 'All trashs are already recycled' });
+        } else {
+          trashBinHelpers.setTrash({ type: 1 }, ({ error, result }) => {
+            if (error) {
+              res.send(error);
+            } else {
+              result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+            }
+          });
+        }
       }
     });
   });
