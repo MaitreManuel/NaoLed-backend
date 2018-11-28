@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-server.listen(process.env.PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server servin' from good ol' port ${process.env.PORT}`);
 });
 
