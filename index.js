@@ -1,7 +1,8 @@
-const bodyParser = require('body-parser')
-const express = require('express')
-const mongoose = require('mongoose')
-const app = express()
+require('dotenv').config();
+const bodyParser = require('body-parser');
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
 
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
@@ -9,9 +10,9 @@ const io = require('socket.io')(server)
 require('./route/ashbin')(app)
 require('./route/trash')(app)
 
-const PORT = process.env.PORT || 5000
-const DB_LINK = 'mongodb://mongo:27017/naoled'
-const DB_OPTIONS = { useNewUrlParser: true }
+const PORT = process.env.DB_PORT;
+const DB_LINK = process.env.DB_HOST;
+const DB_OPTIONS = { useNewUrlParser: true };
 
 mongoose
   .connect(
