@@ -33,3 +33,8 @@ app.get('/', (req, res) => {
   console.log('Route /');
   res.send('Route /');
 });
+
+io.on('connection', () => {
+  console.log('socket.io connected')
+  io.emit('event', 'Event example')
+});
