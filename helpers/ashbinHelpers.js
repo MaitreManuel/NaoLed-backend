@@ -1,4 +1,4 @@
-const Ashbin = require('../model/ashbin');
+const Ashbin = require('../models/ashbin');
 
 module.exports = class AshBinHelpers {
   static getAshBinAverage (result) {

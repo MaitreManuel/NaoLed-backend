@@ -1,7 +1,7 @@
 const helpers = require('../helpers/global');
 const trashBinHelpers = require('../helpers/trashHelpers');
 
-const Trash = require('../model/trash');
+const Trash = require('../models/trash');
 
 module.exports = app => {
   // Get historic of trash used and recycled

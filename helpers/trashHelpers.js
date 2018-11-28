@@ -1,4 +1,4 @@
-const Trash = require('../model/trash');
+const Trash = require('../models/trash');
 
 module.exports = class TrashHelpers {
   static getNbTrash(result) {

@@ -13,13 +13,13 @@ module.exports = class Global {
   // Get all entries between two dates
   static fromTo(model, options, callback) {
     return model.aggregate([
-      { "$match": {
-          "time": { "$gte": parseInt(options.from), "$lt": parseInt(options.to) }
+      { '$match': {
+          'time': { '$gte': parseInt(options.from), '$lt': parseInt(options.to) }
         }
       }
     ], (error, result) => {
       if (error) {
-        callback({ error: error});
+        callback({ error: error });
       } else {
         callback({ result: result });
       }

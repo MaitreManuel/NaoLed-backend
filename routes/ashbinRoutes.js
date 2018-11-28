@@ -1,7 +1,8 @@
 const helpers = require('../helpers/global');
+const arduinoHelpers = require('../helpers/arduinoHelpers');
 const ashBinHelpers = require('../helpers/ashbinHelpers');
 
-const Ashbin = require('../model/ashbin');
+const Ashbin = require('../models/ashbin');
 
 module.exports = app => {
   // Get historic of fags thrown in ashbin
@@ -42,6 +43,8 @@ module.exports = app => {
 
   // Add entry when fag is thrown in ashbin
   app.get('/addAshbin', (req, res) => {
+    // arduinoHelpers.getByName(arduino, ({ error, result }) => console.log(result));
+
     ashBinHelpers.setAshbin(({ error, result }) => {
       if (error) {
         res.send(error);
