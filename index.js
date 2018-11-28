@@ -10,10 +10,7 @@ const io = require('socket.io')(server);
 require('./route/ashbin')(app);
 require('./route/trash')(app);
 
-console.log(process.env.DB_PORT)
-
 const PORT = process.env.DB_PORT;
-// const DB_LINK = 'mongodb://mongo:27017/noaled';
 const DB_LINK = process.env.DB_HOST;
 const DB_OPTIONS = { useNewUrlParser: true };
 
