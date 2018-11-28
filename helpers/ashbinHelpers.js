@@ -9,11 +9,15 @@ module.exports = class AshBinHelpers {
     return result.length;
   }
 
-  static setAshbin() {
+  static setAshbin(callback) {
     Ashbin.create({
       time: new Date().getTime()
     }, (error, result) => {
-      error ? res.send(error) : res.send(result);
+      if (error) {
+        callback({ error: error});
+      } else {
+        callback({ result: result });
+      }
     });
   }
-}
+};

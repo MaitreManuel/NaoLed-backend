@@ -13,12 +13,20 @@ module.exports = class TrashHelpers {
     return result.filter(e => e.type == 0).length;
   }
 
-  static setTrash(type, res) {
-    Ashbin.create({
+  static getNbTrashWhichNotBeSort(result) {
+    return result.filter(e => e.type == 0).length - result.filter(e => e.type == 1).length;
+  }
+
+  static setTrash(options, callback) {
+    Trash.create({
       time: new Date().getTime(),
-      type: type
+      type: options.type
     }, (error, result) => {
-      error ? res.send(error) : res.send(result);
+      if (error) {
+        callback({ error: error});
+      } else {
+        callback({ result: result });
+      }
     });
   }
-}
+};
