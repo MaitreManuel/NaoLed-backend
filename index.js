@@ -6,12 +6,14 @@ const app = express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const config = require('./config')
 
 require('./route/ashbin')(app);
 require('./route/trash')(app);
 
+console.log(process.env.DB_PORT)
+
 const PORT = process.env.DB_PORT;
+// const DB_LINK = 'mongodb://mongo:27017/noaled';
 const DB_LINK = process.env.DB_HOST;
 const DB_OPTIONS = { useNewUrlParser: true };
 
@@ -26,8 +28,8 @@ app.use((req, res, next) => {
   next();
 });
 
-server.listen(config.PORT, () => {
-  console.log(`Server servin' from good ol' port ${config.PORT}`);
+server.listen(process.env.PORT, () => {
+  console.log(`Server servin' from good ol' port ${process.env.PORT}`);
 });
 
 app.get('/', (req, res) => {
