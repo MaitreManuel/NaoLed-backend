@@ -1,6 +1,6 @@
 # NaoLED (backend)
 
- ## With Docker
+## With Docker
  
 ```
 docker-compose up
@@ -8,7 +8,7 @@ docker-compose up
 
 Server is now up on `http://localhost:5000`
 
- ## Without Docker
+## Without Docker
  
 ```
 npm i # install dependencies

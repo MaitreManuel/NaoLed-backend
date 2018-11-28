@@ -10,9 +10,9 @@ services:
             - mongo
         depends_on:
             - mongo
-        mongo:
-            image: mongo:latest
-            volumes:
-                - ./dump:/data/db
-            ports:
-                - '27017:27017'
+    mongo:
+        image: mongo:latest
+        volumes:
+            - ./dump/naoled:/data/db/naoled
+        ports:
+            - '27017:27017'
