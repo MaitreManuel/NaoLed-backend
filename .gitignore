@@ -8,7 +8,6 @@ docker-compose.override.yml
 !/var/logs
 /var/logs/**/*
 .env
-.env.dist
 docs/.couscous/generated/*
 /apps/www/web/uploads
 /apps/www/app/Resources/database/*
