@@ -1,3 +1,6 @@
+const TrashRouter = require('express').Router();
+
+const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const trashBinHelpers = require('../helpers/trashHelpers');
 
@@ -60,21 +63,31 @@ module.exports = app => {
   });
 
   // Add a Trash recycled
-  app.get('/setTrashIn', (req, res) => {
-    helpers.getAll(Trash, ({ error, result }) => {
+  app.post('/setTrashIn', (req, res) => {
+    arduinoHelpers.getByName(req.body.name, ({ error, result }) => {
       if (error) {
         res.send(error);
       } else {
-        let nbAshbin = trashBinHelpers.getNbTrashWhichNotBeSort(result);
-
-        if (nbAshbin < 1) {
-          res.status(418).send({ 'message': 'All trashs are already recycled' });
+        if (result.length < 1) {
+          res.status(418).send({ 'message': 'Identifiant faux' });
         } else {
-          trashBinHelpers.setTrash({ type: 1 }, ({ error, result }) => {
+          helpers.getAll(Trash, ({ error, result }) => {
             if (error) {
               res.send(error);
             } else {
-              result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
+              let nbAshbin = trashBinHelpers.getNbTrashWhichNotBeSort(result);
+
+              if (nbAshbin < 1) {
+                res.status(418).send({ 'message': 'All trashs are already recycled' });
+              } else {
+                trashBinHelpers.setTrash({ type: 1 }, ({ error, result }) => {
+                  if (error) {
+                    res.send(error);
+                  } else {
+                    result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
+                  }
+                });
+              }
             }
           });
         }
@@ -83,12 +96,22 @@ module.exports = app => {
   });
 
   // Add a Trash used
-  app.get('/setTrashOut', (req, res) => {
-    trashBinHelpers.setTrash({ type: 0 }, ({ error, result }) => {
+  app.post('/setTrashOut', (req, res) => {
+    arduinoHelpers.getByName(req.body.name, ({ error, result }) => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
+        if (result.length < 1) {
+          res.status(418).send({ 'message': 'Identifiant faux' });
+        } else {
+          trashBinHelpers.setTrash({ type: 0 }, ({ error, result }) => {
+            if (error) {
+              res.send(error);
+            } else {
+              result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
+            }
+          });
+        }
       }
     });
   });

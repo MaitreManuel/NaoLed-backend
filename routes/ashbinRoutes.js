@@ -1,7 +1,7 @@
 const AshbinRouter = require('express').Router();
 
-const helpers = require('../helpers/global');
 const arduinoHelpers = require('../helpers/arduinoHelpers');
+const helpers = require('../helpers/global');
 const ashBinHelpers = require('../helpers/ashbinHelpers');
 
 const Ashbin = require('../models/ashbin');
@@ -45,15 +45,6 @@ module.exports = app => {
 
   // Add entry when fag is thrown in ashbin
   AshbinRouter.route('/')
-    .get((req, res) => {
-      ashBinHelpers.setAshbin(({ error, result }) => {
-        if (error) {
-          res.send(error);
-        } else {
-          result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
-        }
-      });
-    })
     .post((req, res) => {
       arduinoHelpers.getByName(req.body.name, ({ error, result }) => {
         if (error) {
