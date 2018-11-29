@@ -13,7 +13,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
       }
     });
   });
@@ -24,7 +24,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: ashBinHelpers.getNbAshbin(result) });
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: ashBinHelpers.getNbAshbin(result) });
       }
     });
   });
@@ -38,7 +38,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
       }
     });
   });
@@ -50,7 +50,7 @@ module.exports = app => {
         if (error) {
           res.send(error);
         } else {
-          result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+          result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
         }
       });
     })
@@ -59,9 +59,8 @@ module.exports = app => {
         if (error) {
           res.send(error);
         } else {
-          console.log(result);
           if (result.length < 1) {
-            res.send({ 'message': 'Identifiant faux' });
+            res.status(418).send({ 'message': 'Identifiant faux' });
           } else {
             ashBinHelpers.setAshbin(({ error, result }) => {
               if (error) {
