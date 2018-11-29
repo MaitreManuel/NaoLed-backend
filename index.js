@@ -11,7 +11,7 @@ require('./routes/ashbinRoutes')(app);
 require('./routes/trashRoutes')(app);
 
 const PORT = process.env.DB_PORT;
-const DB_LINK = process.env.DB_HOST;
+const DB_LINK = process.env.DB_HOST || process.env.MONGODB_ADDON_URI;
 const DB_OPTIONS = { useNewUrlParser: true };
 
 mongoose.connect(DB_LINK, DB_OPTIONS);
