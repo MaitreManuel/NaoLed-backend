@@ -1,3 +1,5 @@
+const AshbinRouter = require('express').Router();
+
 const helpers = require('../helpers/global');
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const ashBinHelpers = require('../helpers/ashbinHelpers');
@@ -42,15 +44,37 @@ module.exports = app => {
   });
 
   // Add entry when fag is thrown in ashbin
-  app.get('/addAshbin', (req, res) => {
-    // arduinoHelpers.getByName(arduino, ({ error, result }) => console.log(result));
+  AshbinRouter.route('/')
+    .get((req, res) => {
+      ashBinHelpers.setAshbin(({ error, result }) => {
+        if (error) {
+          res.send(error);
+        } else {
+          result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+        }
+      });
+    })
+    .post((req, res) => {
+      console.log(req.body);
+      arduinoHelpers.getByName(req.body.name, ({ error, result }) => {
+        if (error) {
+          res.send(error);
+        } else {
+          if (result.length < 1) {
+            res.send({ 'message': 'Identifiant faux' });
+          } else {
+            ashBinHelpers.setAshbin(({ error, result }) => {
+              if (error) {
+                res.send(error);
+              } else {
+                result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
+              }
+            });
+          }
+        }
+      });
+    })
+  ;
 
-    ashBinHelpers.setAshbin(({ error, result }) => {
-      if (error) {
-        res.send(error);
-      } else {
-        result.length < 1 ? res.send({ 'message': 'Aucun résultat' }) : res.send(result);
-      }
-    });
-  });
+  app.use('/addAshbin', AshbinRouter);
 };

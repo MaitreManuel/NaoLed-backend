@@ -7,6 +7,9 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 require('./routes/ashbinRoutes')(app);
 require('./routes/trashRoutes')(app);
 
@@ -15,9 +18,6 @@ const DB_LINK = process.env.DB_HOST || process.env.MONGODB_ADDON_URI;
 const DB_OPTIONS = { useNewUrlParser: true };
 
 mongoose.connect(DB_LINK, DB_OPTIONS);
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
