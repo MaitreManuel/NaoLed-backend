@@ -55,11 +55,11 @@ module.exports = app => {
       });
     })
     .post((req, res) => {
-      console.log(req.body);
       arduinoHelpers.getByName(req.body.name, ({ error, result }) => {
         if (error) {
           res.send(error);
         } else {
+          console.log(result);
           if (result.length < 1) {
             res.send({ 'message': 'Identifiant faux' });
           } else {
