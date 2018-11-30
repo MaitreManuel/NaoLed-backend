@@ -6,7 +6,7 @@ const app = express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-module.exports = io
+module.exports = io;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

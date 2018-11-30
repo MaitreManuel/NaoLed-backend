@@ -85,10 +85,10 @@ module.exports = app => {
                     res.send(error);
                   } else {
                     if (result.length < 1) {
-                      return res.status(418).send({ 'message': 'Aucun résultat' })
+                      return res.status(418).send({ 'message': 'Aucun résultat' });
                     }
                     res.send(result);
-                    helpers.emitEvent('trashIn', result)
+                    helpers.emitEvent('trashIn', result);
                   }
                 });
               }
@@ -113,10 +113,10 @@ module.exports = app => {
               res.send(error);
             } else {
               if (result.length < 1) {
-                return res.status(418).send({ 'message': 'Aucun résultat' })
+                return res.status(418).send({ 'message': 'Aucun résultat' });
               }
               res.send(result);
-              helpers.emitEvent('trashOut', result)
+              helpers.emitEvent('trashOut', result);
             }
           });
         }

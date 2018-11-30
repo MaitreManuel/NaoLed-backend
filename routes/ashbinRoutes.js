@@ -9,7 +9,6 @@ const Ashbin = require('../models/ashbin');
 module.exports = app => {
   // Get historic of fags thrown in ashbin
   app.get('/getAshbins', (req, res) => {
-    io.emit('', '')
     helpers.getAll(Ashbin, ({ error, result }) => {
       if (error) {
         res.send(error);
@@ -59,10 +58,10 @@ module.exports = app => {
                 res.send(error);
               } else {
                 if (result.length < 1) {
-                    return res.send({ 'message': 'Aucun résultat' })
+                    return res.send({ 'message': 'Aucun résultat' });
                 }
                 res.send(result);
-                helpers.emitEvent('ashbinAdd', result)
+                helpers.emitEvent('ashbinAdd', result);
               }
             });
           }
