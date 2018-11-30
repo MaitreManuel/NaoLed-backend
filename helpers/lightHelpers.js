@@ -1,18 +1,17 @@
 const Light = require('../models/light');
-const helpers = require('./global')
+const helpers = require('./global');
 
 module.exports = class LightHelpers {
 
   static setLight(status, callback) {
     LightHelpers.lastLightOn((light) => {
       if (light) {
-        if (!light.time_light_off && !parseInt(status)) { // si date_closed est null et que status = 0
+        if (!light.time_light_off && !parseInt(status)) {
           LightHelpers.switchLightOff(light, callback);
-        } else if (light.time_light_off && parseInt(status)) { // si date_closed est que la porte vient de s'ouvrir
+        } else if (light.time_light_off && parseInt(status)) {
           LightHelpers.switchLightOn(callback);
         } else {
-          callback({error: 'La lumiere est déjà allumée'})
-          console.log('La lumière est déjà allumée')
+          callback({error: 'La lumiere est déjà allumée'});
         }
       } else if (parseInt(status)) {
         LightHelpers.switchtLightOn(callback);
@@ -35,16 +34,15 @@ module.exports = class LightHelpers {
   }
 
   static switchLightOff(light, callback) {
-    light.set({time_light_off: new Date().getTime()});
+    light.set({ time_light_off: new Date().getTime() });
     light.save((er, newLight) => {
-      console.log('updated new light', light);
       callback({ result: light });
       helpers.emitEvent ('switchLightOff', light);
     })
   }
 
   static lastLightOn(returnValue) {
-    Light.find().sort({_id: -1}).limit(1).exec((err, res) => {
+    Light.find().sort({ _id: -1 }).limit(1).exec((err, res) => {
       if (err) throw err;
       if (res) {
         returnValue(res[0]);

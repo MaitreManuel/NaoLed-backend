@@ -1,5 +1,5 @@
 const Door = require('../models/door');
-const helpers = require('../helpers/global')
+const helpers = require('../helpers/global');
 
 module.exports = class DoorHelpers {
 
