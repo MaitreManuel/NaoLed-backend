@@ -25,4 +25,13 @@ module.exports = class Global {
       }
     });
   }
+
+  static emitEvent (eventName, data) {
+    data.score = helpers.getGlobalScore();
+    io.emit(eventName, data);
+  }
+
+  static getGlobalScore () {
+    return 1500;
+  }
 };

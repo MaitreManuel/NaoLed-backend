@@ -84,7 +84,11 @@ module.exports = app => {
                   if (error) {
                     res.send(error);
                   } else {
-                    result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
+                    if (result.length < 1) {
+                      return res.status(418).send({ 'message': 'Aucun résultat' });
+                    }
+                    res.send(result);
+                    helpers.emitEvent('trashIn', result);
                   }
                 });
               }
@@ -108,7 +112,11 @@ module.exports = app => {
             if (error) {
               res.send(error);
             } else {
-              result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send(result);
+              if (result.length < 1) {
+                return res.status(418).send({ 'message': 'Aucun résultat' });
+              }
+              res.send(result);
+              helpers.emitEvent('trashOut', result);
             }
           });
         }
