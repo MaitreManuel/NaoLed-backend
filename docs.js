@@ -1,5 +1,5 @@
 const Docs = require('express-api-doc');
-const app = require('./index');
+const app = require('./index').app;
 const docs = new Docs(app);
 
 docs.generate({

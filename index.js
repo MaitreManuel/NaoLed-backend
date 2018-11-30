@@ -6,7 +6,8 @@ const app = express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-module.exports = io;
+module.exports.io = io;
+const helpers = require('./helpers/global');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,7 +39,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', () => {
-  io.emit('event', 'Event example');
+  helpers.emitEvent('event', {message: 'First connection !'});
 });
 
-module.exports = app;
+module.exports.app = app;
