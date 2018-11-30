@@ -24,7 +24,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrash(result) });
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbTrash: trashBinHelpers.getNbTrash(result) });
       }
     });
   });
@@ -35,7 +35,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrashIn(result) });
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbTrash: trashBinHelpers.getNbTrashIn(result) });
       }
     });
   });
@@ -46,7 +46,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbin: trashBinHelpers.getNbTrashOut(result) });
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbTrash: trashBinHelpers.getNbTrashOut(result) });
       }
     });
   });
@@ -57,7 +57,7 @@ module.exports = app => {
       if (error) {
         res.send(error);
       } else {
-        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbAshbinToRecycle: trashBinHelpers.getNbTrashWhichNotBeSort(result) });
+        result.length < 1 ? res.status(418).send({ 'message': 'Aucun résultat' }) : res.send({ nbTrashToRecycle: trashBinHelpers.getNbTrashWhichNotBeSort(result) });
       }
     });
   });
