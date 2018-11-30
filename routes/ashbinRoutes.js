@@ -3,7 +3,6 @@ const AshbinRouter = require('express').Router();
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const ashBinHelpers = require('../helpers/ashbinHelpers');
-const io = require('../index')
 const Ashbin = require('../models/ashbin');
 
 

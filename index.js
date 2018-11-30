@@ -12,9 +12,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./routes/ashbinRoutes')(app);
-require('./routes/trashRoutes')(app);
 require('./routes/doorRoutes')(app);
 require('./routes/lightRoutes')(app);
+require('./routes/stairsRoutes')(app);
+require('./routes/trashRoutes')(app);
 
 const PORT = process.env.DB_PORT;
 const DB_LINK = process.env.DB_HOST || process.env.MONGODB_ADDON_URI;
@@ -33,11 +34,9 @@ server.listen(PORT, () => {
 });
 
 app.get('/', (req, res) => {
-  console.log('Route /');
   res.send('Route /');
 });
 
 io.on('connection', () => {
-  console.log('socket.io connected');
   io.emit('event', 'Event example');
 });
