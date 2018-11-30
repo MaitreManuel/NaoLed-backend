@@ -12,11 +12,11 @@ class DoorClass {
   }
 
   getTimeOpen() {
-    return this.date_open;
+    return this.time_open;
   }
 
   getTimeClosed() {
-    return this.date_closed;
+    return this.time_closed;
   }
 }
 

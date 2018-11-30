@@ -1,4 +1,5 @@
 const Door = require('../models/door');
+const helpers = require('../helpers/global')
 
 module.exports = class DoorHelpers {
 
@@ -8,17 +9,17 @@ module.exports = class DoorHelpers {
         if (!door.time_closed && !parseInt(status)) { // si date_closed est null et que status = 0
           DoorHelpers.closeDoor(door, callback);
         } else if (door.time_closed && parseInt(status)) { // si date_closed est que la porte vient de s'ouvrir
-          DoorHelpers.createDoor(callback);
+          DoorHelpers.openDoor(callback);
         } else {
           callback({error: `La porte est déjà ${ status == 1 ? 'ouverte' : 'fermée' }`});
         }
       } else if (parseInt(status)) {
-        DoorHelpers.createDoor(callback);
+        DoorHelpers.openDoor(callback);
       }
     })
   }
 
-  static createDoor(callback) {
+  static openDoor(callback) {
     Door.create({
       time_open: new Date().getTime(),
       time_closed: null
@@ -27,6 +28,7 @@ module.exports = class DoorHelpers {
         callback({ error: error});
       } else {
         callback({ result: result });
+        helpers.emitEvent ('openDoor', result);
       }
     });
   }
@@ -36,6 +38,7 @@ module.exports = class DoorHelpers {
     door.save((er, newDoor) => {
       console.log('updated new door', door);
       callback({ result: door });
+      helpers.emitEvent ('closeDoor', door);
     })
   }
 

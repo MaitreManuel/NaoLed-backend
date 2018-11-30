@@ -31,7 +31,6 @@ module.exports = app => {
                 res.send(error);
               } else {
                 res.send(result);
-                helpers.emitEvent('ashbinAdd', result);
               }
             });
           }
