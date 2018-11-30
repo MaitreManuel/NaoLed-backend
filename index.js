@@ -36,6 +36,6 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', () => {
-  console.log('socket.io connected')
-  io.emit('event', 'Event example')
+  console.log('socket.io connected');
+  io.emit('event', 'Event example');
 });
