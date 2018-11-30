@@ -10,7 +10,6 @@ const Ashbin = require('../models/ashbin');
 module.exports = app => {
   // Get historic of fags thrown in ashbin
   app.get('/getAshbins', (req, res) => {
-    io.emit('', '')
     helpers.getAll(Ashbin, ({ error, result }) => {
       if (error) {
         res.send(error);
