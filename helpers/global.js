@@ -1,4 +1,4 @@
-const io = require('../index')
+const io = require('../index').io
 
 module.exports = class Global {
   // Generic function for all model to get all data from a collection
