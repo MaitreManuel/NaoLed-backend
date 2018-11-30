@@ -1,3 +1,5 @@
+const io = require('../index')
+
 module.exports = class Global {
   // Generic function for all model to get all data from a collection
   static getAll(model, callback) {
@@ -27,7 +29,7 @@ module.exports = class Global {
   }
 
   static emitEvent (eventName, data) {
-    data.score = helpers.getGlobalScore();
+    data.score = Global.getGlobalScore();
     io.emit(eventName, data);
   }
 
