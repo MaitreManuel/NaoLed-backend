@@ -40,3 +40,5 @@ app.get('/', (req, res) => {
 io.on('connection', () => {
   io.emit('event', 'Event example');
 });
+
+module.exports = app;
