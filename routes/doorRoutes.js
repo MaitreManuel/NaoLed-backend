@@ -18,7 +18,7 @@ module.exports = app => {
       });
     })
 
-    .post(({body: { name, status }}, res) => {
+    .post(({ body: { name, status } }, res) => {
       arduinoHelpers.getByName(name, ({ error, result }) => {
         if (error) {
           res.send(error);
