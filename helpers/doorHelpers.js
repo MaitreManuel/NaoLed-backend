@@ -33,7 +33,7 @@ module.exports = class DoorHelpers {
   }
 
   static closeDoor(door, callback) {
-    door.set({time_closed: 99999});
+    door.set({time_closed: new Date().getTime()});
     door.save((er, newDoor) => {
       console.log('updated new door', door);
       callback({ result: door });
