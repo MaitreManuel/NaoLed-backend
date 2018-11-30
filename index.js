@@ -4,7 +4,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 module.exports = io;
@@ -14,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./routes/ashbinRoutes')(app);
 require('./routes/doorRoutes')(app);
+require('./routes/lightRoutes')(app);
 require('./routes/stairsRoutes')(app);
 require('./routes/trashRoutes')(app);
 
@@ -38,6 +38,5 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', () => {
-  console.log('socket.io connected');
   io.emit('event', 'Event example');
 });

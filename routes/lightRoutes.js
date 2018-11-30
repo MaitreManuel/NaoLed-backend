@@ -1,15 +1,15 @@
-const DoorRouter = require('express').Router();
+const LightRouter = require('express').Router();
 
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
-const doorHelpers = require('../helpers/doorHelpers');
+const lightHelpers = require('../helpers/lightHelpers');
 
-const Door = require('../models/door');
+const Light = require('../models/light');
 
 module.exports = app => {
-  DoorRouter.route('/')
+  LightRouter.route('/')
     .get((req, res) => {
-      helpers.getAll(Door, ({ error, result }) => {
+      helpers.getAll(Light, ({ error, result }) => {
         if (error) {
           res.send(error);
         } else {
@@ -18,7 +18,7 @@ module.exports = app => {
       });
     })
 
-    .post(({ body: { name, status } }, res) => {
+    .post(({body: { name, status }}, res) => {
       arduinoHelpers.getByName(name, ({ error, result }) => {
         if (error) {
           res.send(error);
@@ -26,7 +26,7 @@ module.exports = app => {
           if (result.length < 1) {
             res.status(418).send({ 'message': 'Identifiant faux' });
           } else {
-            doorHelpers.setDoor(status, ({ error, result }) => {
+            lightHelpers.setLight(status, ({ error, result }) => {
               if (error) {
                 res.send(error);
               } else {
@@ -38,5 +38,5 @@ module.exports = app => {
       })
     })
 
-  app.use('/doors', DoorRouter);
+  app.use('/lights', LightRouter);
 };
