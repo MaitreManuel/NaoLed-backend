@@ -28,9 +28,9 @@ module.exports = class Global {
     });
   }
 
-  static emitEvent (eventName, data) {
-    data.score = Global.getGlobalScore();
-    io.emit(eventName, data);
+  static async emitEvent (eventName, data) {
+    const sentData = {...data, score: Global.getGlobalScore()}
+    io.emit(eventName, sentData);
   }
 
   static getGlobalScore () {
