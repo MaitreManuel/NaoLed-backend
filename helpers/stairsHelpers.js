@@ -1,4 +1,4 @@
-const Stairs = require('../models/ashbin');
+const Stairs = require('../models/stairs');
 
 module.exports = class StairsHelpers {
   static getStairsAverage (result) {
