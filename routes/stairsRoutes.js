@@ -31,7 +31,7 @@ module.exports = app => {
                 res.send(error);
               } else {
                 if (result.length < 1) {
-                  return res.send({ 'message': 'Aucun résultat' });
+                  res.send({ 'message': 'Aucun résultat' });
                 }
                 res.send(result);
                 helpers.emitEvent('stairsAdd', result);

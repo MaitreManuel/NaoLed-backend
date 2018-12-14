@@ -4,6 +4,9 @@ module.exports = class Global {
   // Generic function for all model to get all data from a collection
   static getAll(model, callback) {
     return model.find((error, result) => {
+      if (!callback) {
+        return { error: error, result: result }
+      }
       if (error) {
         callback({ error: error});
       } else {
@@ -21,7 +24,7 @@ module.exports = class Global {
       }
     ], (error, result) => {
       if (error) {
-        callback({ error: error });
+        calback({ error: error });
       } else {
         callback({ result: result });
       }
@@ -30,7 +33,7 @@ module.exports = class Global {
 
   static emitEvent (eventName, data) {
     const sentData = {...data, score: Global.getGlobalScore()};
-    
+
     io.emit(eventName, sentData);
   }
 
