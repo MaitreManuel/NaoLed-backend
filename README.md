@@ -17,6 +17,6 @@ npm start # run API
 
 # Install
 
-Copier le `.env.dist` et le coller en `.env` (racine du projet).
-À `DB_HOST`, mettre l'adresse de la base mongoDB.
-À `DB_LINK`, mettre le port sur lequel le serveur marchera.
+- Copier le `.env.dist` et le coller en `.env` (racine du projet).
+- À `DB_HOST`, mettre l'adresse de la base mongoDB.
+- À `DB_LINK`, mettre le port sur lequel le serveur marchera.
