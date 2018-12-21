@@ -1,4 +1,5 @@
-const io = require('../index').io
+const io = require('../index').io;
+const Score = require('../models/score');
 
 module.exports = class Global {
   // Generic function for all model to get all data from a collection
@@ -8,7 +9,18 @@ module.exports = class Global {
         return { error: error, result: result }
       }
       if (error) {
-        callback({ error: error});
+        callback({ error: error });
+      } else {
+        callback({ result: result });
+      }
+    });
+  }
+
+  // Generic function for all model to get last entry from a collection
+  static getLastEntry(model, callback) {
+    return model.findOne().sort({ _id : -1 }).exec((error, result) => {
+      if (error) {
+        callback({ error: error });
       } else {
         callback({ result: result });
       }
@@ -32,12 +44,16 @@ module.exports = class Global {
   }
 
   static emitEvent (eventName, data) {
-    const sentData = {...data, score: Global.getGlobalScore()};
+    let sentData = {...data, score: 1500};
 
-    io.emit(eventName, sentData);
-  }
+    Global.getLastEntry(Score, ({ error, result }) => {
+      if (error) {
+        console.error(error);
+      } else {
+        sentData.score = result.value;
+      }
 
-  static getGlobalScore () {
-    return 1500;
+      io.emit(eventName, sentData);
+    });
   }
 };

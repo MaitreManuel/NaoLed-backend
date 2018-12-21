@@ -3,8 +3,10 @@ const AshbinRouter = require('express').Router();
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const ashBinHelpers = require('../helpers/ashbinHelpers');
+const scoreHelpers = require('../helpers/scoreHelpers');
 const Ashbin = require('../models/ashbin');
 
+const config = require('../config');
 
 module.exports = app => {
   // Get historic of fags thrown in ashbin
@@ -60,6 +62,7 @@ module.exports = app => {
                 if (result.length < 1) {
                     return res.send({ 'message': 'Aucun résultat' });
                 }
+                scoreHelpers.updateScore(config.ASHBIN);
                 res.send(result);
                 helpers.emitEvent('ashbinAdd', result);
               }

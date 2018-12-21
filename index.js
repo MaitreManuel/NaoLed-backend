@@ -23,6 +23,7 @@ require('./routes/doorRoutes')(app);
 require('./routes/lightRoutes')(app);
 require('./routes/stairsRoutes')(app);
 require('./routes/trashRoutes')(app);
+require('./routes/scoreRoutes')(app);
 
 const PORT = process.env.DB_PORT;
 const DB_LINK = process.env.DB_HOST || process.env.MONGODB_ADDON_URI;

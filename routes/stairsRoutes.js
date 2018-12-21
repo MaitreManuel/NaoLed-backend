@@ -3,7 +3,10 @@ const StairsRouter = require('express').Router();
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const stairsHelpers = require('../helpers/stairsHelpers');
+const scoreHelpers = require('../helpers/scoreHelpers');
 const Stairs = require('../models/stairs');
+
+const config = require('../config');
 
 module.exports = app => {
   // Get historic of people who walks in stairs
@@ -35,6 +38,7 @@ module.exports = app => {
                 }
                 res.send(result);
                 helpers.emitEvent('stairsAdd', result);
+                scoreHelpers.updateScore(config.STAIRS);
               }
             });
           }
