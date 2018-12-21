@@ -3,8 +3,10 @@ const LightRouter = require('express').Router();
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const lightHelpers = require('../helpers/lightHelpers');
-
+const scoreHelpers = require('../helpers/scoreHelpers');
 const Light = require('../models/light');
+
+const config = require('../config');
 
 module.exports = app => {
   LightRouter.route('/')
@@ -31,6 +33,7 @@ module.exports = app => {
                 res.send(error);
               } else {
                 res.send(result);
+                scoreHelpers.updateScore(config.LIGHT_ON);
               }
             });
           }

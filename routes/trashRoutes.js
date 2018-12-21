@@ -3,8 +3,10 @@ const TrashRouter = require('express').Router();
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const trashBinHelpers = require('../helpers/trashHelpers');
-
+const scoreHelpers = require('../helpers/scoreHelpers');
 const Trash = require('../models/trash');
+
+const config = require('../config');
 
 module.exports = app => {
   // Get historic of trash used and recycled
@@ -87,6 +89,7 @@ module.exports = app => {
                     if (result.length < 1) {
                       return res.status(418).send({ 'message': 'Aucun résultat' });
                     }
+                    scoreHelpers.updateScore(config.COFFEE_RECYCLED);
                     res.send(result);
                     helpers.emitEvent('trashIn', result);
                   }
@@ -115,6 +118,7 @@ module.exports = app => {
               if (result.length < 1) {
                 return res.status(418).send({ 'message': 'Aucun résultat' });
               }
+              scoreHelpers.updateScore(config.COFFEE_USED);
               res.send(result);
               helpers.emitEvent('trashOut', result);
             }

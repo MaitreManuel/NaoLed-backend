@@ -3,8 +3,10 @@ const DoorRouter = require('express').Router();
 const arduinoHelpers = require('../helpers/arduinoHelpers');
 const helpers = require('../helpers/global');
 const doorHelpers = require('../helpers/doorHelpers');
-
+const scoreHelpers = require('../helpers/scoreHelpers');
 const Door = require('../models/door');
+
+const config = require('../config');
 
 module.exports = app => {
   DoorRouter.route('/')
@@ -31,6 +33,7 @@ module.exports = app => {
                 res.send(error);
               } else {
                 res.send(result);
+                scoreHelpers.updateScore(config.DOOR_OPEN);
               }
             });
           }

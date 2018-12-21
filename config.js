@@ -1,0 +1,22 @@
+module.exports = config = {
+  MAXIMUM_SCORE: 86400,
+  MINIMUM_SCORE: 0,
+
+  COFFEE_USED: 'COFFEE_USED',
+  COFFEE_RECYCLED: 'COFFEE_RECYCLED',
+  DOOR_OPEN: 'DOOR_OPEN',
+  LIGHT_ON: 'LIGHT_ON',
+  ASHBIN: 'ASHBIN',
+  STAIRS: 'STAIRS',
+  TIME: 'TIME',
+
+  SCORE_VALUES: {
+    'COFFEE_USED': -120,
+    'COFFEE_RECYCLED': 180,
+    'DOOR_OPEN': -15,
+    'LIGHT_ON': -10,
+    'ASHBIN': 60,
+    'STAIRS': 600,
+    'TIME': -300
+  }
+}
